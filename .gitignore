@@ -1,0 +1,28 @@
+# Entornos Virtuales
+venv/
+env/
+.env
+
+# Archivos compilados de Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Archivos generados y Reportes Excel
+*.xlsx
+!plantilla*.xlsx
+
+# Archivos de Debug, Logs temporales e Imágenes
+debug_*.json
+debug_*.py
+debug_image.jpg
+res.json
+
+# Entorno de trabajo local y editores
+.vscode/
+.idea/
+*.swp
+
+# Ignorar PDFs (Ej. facturas que entran por flujo, para no subir datos sensibles),
+# pero conservar la carpeta base si existe:
+facturas_tipos/*.pdf
