@@ -14,6 +14,7 @@ from openpyxl.styles import (
 )
 from openpyxl.utils import get_column_letter
 from openpyxl.styles.numbers import FORMAT_NUMBER_COMMA_SEPARATED1
+import pandas as pd
 
 from core.constants import (
     COLOR_VERDE_OSCURO, COLOR_VERDE_MEDIO, COLOR_VERDE_CLARO, COLOR_VERDE_PALIDO,
@@ -280,7 +281,7 @@ def _crear_hoja_llm(wb: Workbook, analisis_lista: list[dict], resumen_ejecutivo:
     # Título
     ws.merge_cells("A1:D1")
     t = ws["A1"]
-    t.value = "ANÁLISIS INTELIGENTE DE FACTURAS — GENERADO POR IA (Gemini)"
+    t.value = "ANÁLISIS INTELIGENTE DE FACTURAS — GENERADO POR IA (Qwen2-VL-7B-Instruct)"
     t.font = Font(bold=True, size=14, color=COLOR_BLANCO, name="Calibri")
     t.fill = PatternFill("solid", fgColor=COLOR_VERDE_OSCURO)
     t.alignment = Alignment(horizontal="center", vertical="center")
@@ -344,6 +345,40 @@ def _crear_hoja_llm(wb: Workbook, analisis_lista: list[dict], resumen_ejecutivo:
 
 
 # ---------------------------------------------------------------------------
+# Hoja 5: Datos Crudos (Aplanados)
+# ---------------------------------------------------------------------------
+
+def _crear_hoja_datos_crudos(wb: Workbook, facturas: list[dict]):
+    """Reproduce el formato de extraccion_cruda_debug.xlsx en una hoja del reporte."""
+    ws = wb.create_sheet("💾 Datos Crudos")
+    
+    if not facturas:
+        return
+
+    # Usamos pandas para aplanar exactamente igual que en el debug
+    df = pd.json_normalize(facturas)
+    
+    # Escribir cabeceras
+    headers = df.columns.tolist()
+    for col_idx, header in enumerate(headers, 1):
+        _celda_cabecera(ws.cell(row=1, column=col_idx), header, COLOR_GRIS_CABECERA, COLOR_VERDE_OSCURO, 10)
+    
+    # Escribir datos
+    for row_idx, row in enumerate(df.values, 2):
+        for col_idx, value in enumerate(row, 1):
+            # Limpieza básica para Excel
+            if isinstance(value, (list, dict)):
+                value = str(value)
+            c = ws.cell(row=row_idx, column=col_idx, value=value)
+            c.border = BORDER_THIN
+            c.font = Font(name="Consolas", size=9)
+            if row_idx % 2 == 0:
+                c.fill = PatternFill("solid", fgColor=COLOR_GRIS_FILA)
+
+    _autoajustar_columnas(ws, min_width=8, max_width=40)
+
+
+# ---------------------------------------------------------------------------
 # Función principal
 # ---------------------------------------------------------------------------
 
@@ -375,6 +410,7 @@ def construir_reporte(
     _crear_hoja_facturas(wb, facturas)
     _crear_hoja_por_tipo(wb, facturas)
     _crear_hoja_llm(wb, analisis_llm, resumen_ejecutivo)
+    _crear_hoja_datos_crudos(wb, facturas)
 
     wb.save(ruta_salida)
     print(f"✅ Reporte guardado en: {ruta_salida}\n")

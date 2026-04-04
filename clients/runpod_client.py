@@ -67,7 +67,7 @@ class RunPodClient:
                 "openai_input": {
                     "model": "Qwen/Qwen2-VL-7B-Instruct",
                     "messages": messages,
-                    "max_tokens": 2500,
+                    "max_tokens": 14000,
                     "temperature": 0.0,
                 }
             }

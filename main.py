@@ -32,6 +32,7 @@ def _parsear_args() -> argparse.Namespace:
         "--output",
         default=os.path.join(
             os.path.dirname(__file__),
+            "reportes",
             f"reporte_facturas_{datetime.now().strftime('%Y%m%d_%H%M%S')}.xlsx"
         ),
         help="Ruta del archivo Excel de salida",
@@ -46,6 +47,8 @@ def _parsear_args() -> argparse.Namespace:
 def main():
     _banner()
     args = _parsear_args()
+
+    os.makedirs(os.path.dirname(args.output), exist_ok=True)
 
     pipeline = InvoiceEtlPipeline(
         input_dir=args.carpeta,

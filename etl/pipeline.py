@@ -70,7 +70,14 @@ class InvoiceEtlPipeline:
         )
 
     def _print_summary(self):
-        total = sum(f.get("bloque_control_y_totales", {}).get("valor_total", 0) for f in self.facturas if isinstance(f, dict))
+        def _to_float(v):
+            try:
+                if v is None: return 0.0
+                return float(str(v).replace('$', '').replace(',', '').strip())
+            except ValueError:
+                return 0.0
+                
+        total = sum(_to_float(f.get("bloque_control_y_totales", {}).get("valor_total", 0)) for f in self.facturas if isinstance(f, dict))
         print("\n" + "=" * 60)
         print(f"  ✅ PROCESO COMPLETADO (ETL PIPELINE)")
         print(f"  Facturas procesadas : {len(self.facturas)}")

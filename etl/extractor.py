@@ -15,7 +15,7 @@ from clients.runpod_client import get_runpod_client
 from dotenv import load_dotenv
 
 from core.utils import get_nested_val, with_retry
-from core.constants import PROMPT_SISTEMA_EXTRACCION
+from core.constants import PROMPT_SISTEMA_EXTRACCION, PROMPT_SISTEMA_EXPLORATORIO
 
 load_dotenv()
 
@@ -79,7 +79,8 @@ from PIL import Image
 
 def _guardar_excel_bruto(datos: dict):
     """Guarda o anexa el JSON crudo (sin modificaciones posteriores) en un Excel."""
-    ruta_excel = "extraccion_cruda_debug.xlsx"
+    os.makedirs("reportes", exist_ok=True)
+    ruta_excel = os.path.join("reportes", "extraccion_cruda_debug.xlsx")
     try:
         df_nuevo = pd.json_normalize(datos)
         if os.path.exists(ruta_excel):
@@ -108,6 +109,7 @@ def parsear_factura(ruta: str) -> dict:
 
     client = _get_client()
     prompt_completo = f"Extrae los datos de esta factura de la CHEC en formato JSON siguiendo estrictamente este esquema:\n{PROMPT_SISTEMA_EXTRACCION}\n\nNo incluyas explicaciones, solo el JSON puro."
+    #prompt_completo = f"Extrae los datos de esta factura de la CHEC en formato JSON siguiendo estrictamente este esquema:\n{PROMPT_SISTEMA_EXPLORATORIO}\n\nNo incluyas explicaciones, solo el JSON puro."
 
     try:
         raw_response = _generar_r_runpod(client, prompt_completo, imagenes_b64)
@@ -152,7 +154,12 @@ def procesar_carpeta(carpeta: str) -> list[dict]:
         
         if "error" not in datos:
             nombre = datos.get("bloque_datos_cliente", {}).get("nombre", "N/A")
-            total = datos.get("bloque_control_y_totales", {}).get("valor_total", 0)
+            total_raw = datos.get("bloque_control_y_totales", {}).get("valor_total", 0)
+            try:
+                total = float(str(total_raw).replace('$', '').replace(',', '').strip()) if total_raw is not None else 0.0
+            except ValueError:
+                total = 0.0
+                
             print(f"     ✅ Éxito: {nombre} | Total: ${total:,.0f}")
             resultados.append(datos)
             # Agregar un delay base entre archivos para evitar spam

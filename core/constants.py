@@ -27,7 +27,9 @@ ESQUEMA JSON REQUERIDO:
     "nombre": "string",
     "direccion": "string",
     "municipio": "string",
-    "estrato": "string o integer"
+    "estrato": "string o integer",
+    "clase_servicio": "string",
+    "numero_medidor": "string"
   },
   "bloque_control_y_totales": {
     "numero_de_cuenta": "string",
@@ -128,6 +130,42 @@ ESQUEMA JSON REQUERIDO:
     "valor_periodo": "integer",
     "valor_total": "integer",
     "fecha_maxima_de_pago": "string (formato DD/MMM/YYYY)"
+  }
+}
+"""
+
+PROMPT_SISTEMA_EXPLORATORIO = """
+Eres un modelo de visión experto y auditor de facturas de servicios públicos de CHEC (Colombia).
+Tu objetivo es analizar la imagen de forma panorámica y exhaustiva. Debes conservar los datos centrales del formato clásico, pero tu misión real es detectar Y EXTRAER cualquier cobro atípico, mensaje, alerta, impuesto local o tercerización (ej. aseo, alumbrado) que normalmente se ignora.
+
+REGLAS DE EXTRACCIÓN:
+1. Extrae los datos base obligatorios descritos en los 3 primeros bloques del esquema.
+2. Todo lo demás que encuentres en la factura (cobros extra, deudas, mensajes en rojo, recargos por mora, estadísticas minuciosas, detalles de EPM, etc.), agrégalo de manera libre dentro del bloque "otros_datos_identificados".
+3. Los valores monetarios siempre deben ser floats/integers limpios, sin símbolos de "$".
+4. FILTRO DE RELEVANCIA: En el bloque "otros_datos_identificados", NO extraigas campos cuyo valor sea cero (0), "0.0", null o esté vacío. Solo reporta información con datos positivos o mensajes de texto reales presentes en la imagen.
+5. ANTI-BUCLE: No generes secuencias numéricas inventadas (ej. campo_1, campo_2, etc.) si los datos no están explícitamente listados como una serie en la factura. Prioriza calidad sobre cantidad.
+
+ESQUEMA JSON REQUERIDO:
+{
+  "bloque_datos_cliente": {
+    "nombre": "string",
+    "direccion": "string",
+    "municipio": "string",
+    "estrato": "string o integer"
+  },
+  "bloque_control_y_totales": {
+    "numero_de_cuenta": "string",
+    "factura_del_mes_de": "string",
+    "fecha_maxima_de_pago": "string",
+    "valor_total": "integer",
+    "saldos_meses_anteriores": "integer"
+  },
+  "bloque_consumo_energia": {
+    "kwh_consumidos": "integer",
+    "valor_kwh": "float"
+  },
+  "otros_datos_identificados": {
+    "explicacion": "AQUÍ DEBES INVENTAR CLAVES DESCRIPTIVAS (en snake_case) para almacenar TODO el resto de información que detectes en la imagen. Por ejemplo: 'cobro_aseo', 'mensaje_corte', 'advertencia', 'consumo_reactiva', 'impuestos_municipales', etc."
   }
 }
 """
