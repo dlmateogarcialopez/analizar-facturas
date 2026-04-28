@@ -1,0 +1,665 @@
+Datos del Cliente
+Otros conceptos Energía CHEC
+Tu consumo de energía este mes fué
+Nombre
+Dirección
+Dirección Postal
+Municipio
+Detalles del Consumo
+Fecha Máxima
+de Pago
+Fecha Suspensíon
+por no pago
+Número de Cuenta
+Valor Total 
+Valor Servicio de Energía
+y Autogeneración
+Crédito PFS / Somos
+Otros Productos
+y/o Servicios
+Impuesto Alumbrado Público
+Aseo
+Conceptos Energía / Alumbrado Público / Otros Servicios y/o Productos
+Crédito PFS / Somos / Aseo
+Saldos meses anteriores
+Meses deuda
+Cuotas y consumos de este mes
+Este valor corresponde a:
+Escanea y paga
+tu factura
+Estrato
+Factura del
+mes de
+Últimos Consumos Facturados
+Días Consumo
+Sábados
+Dom/Fest
+Días Hábiles
+ 
+Fórmula Tarífaria Regulada = CU 
+Costo
+unitario
+del kWh
+Comercialización
+Pérdidas
+Restricciones
+Generación
+Transmisión
+Distribución
+Valor kWh CU
+Opción tarifaria*
+Tarifa Mes
+Vf Costo ﬁjo (Cf)= 0
+*Opción tarifaria
+Resolución CREG 12-2020.
+Mecanismo regulatorio
+para moderar incrementos
+abruptos en la tarifa.
+Valores facturados
+Kwh
+Valor
+Valor por Servicio de Energía
+Tipo
+de Medición
+Lectura
+Actual
+Lectura
+Anterior
+Factor
+Nota de lectura
+Liquidación
+consumo por
+kWh
+Activa
+$ kWh
+Activa
+Valor ($)
+Activa
+Variable
+M
+kVar
+Reactiva
+$kVar
+Reactiva
+kVar
+en exceso
+Valor $
+Reactiva
+en exceso
+Sub
+Total
+Consumo
+activa en kWh 
+Consumo
+reactiva en kVar
+% Subsidio
+% Contribución 
+Saldo
+ en reclamación
+Tasa interés
+moratorio
+Fecha
+último pago
+Valor
+último pago
+Comportamiento
+del Consumo
+Incremento
+Disminuyó
+Mes
+# Días
+Consumo
+Anterior
+Actual
+Su consumo de energía este mes fué
+Tu consumo de energía este mes fué
+Días de
+Consumo
+Fecha de lectura
+Consumo desde - hasta
+Factura
+expedida el
+Capacidad instalada
+Utiliza FNCER
+Modalidad pago excedentes
+Fecha para el pago de excedentes
+Información adicional
+Las contribuciones están a cargo de los usuarios de los estratos altos (5-6) y de 
+los usuarios comerciales e industriales (Artículos 87-3 y 89-1 Ley 142 de 1994 y 
+47 de la Ley 143 de 1994) en un porcentaje del 20% sobre el costo unitario.
+Cod. Circuito
+Cod. Transformador
+Grupo Calidad
+DIU
+FIU
+DIUG
+FIUG
+HC
+VC
+CEC
+%
+Dt
+V/r a Compensar $
+Información de Calidad  Servicio de Energía
+(Duración en horas de eventos)
+(Número total de eventos)
+(Meta por duración)
+(Meta por frecuencia)
+(Horas compensadas)
+(Veces a compensar)
+(Consumo estimado
+a compensar)
+(Cargo de distribución)
+Documento equivalente: 
+Este número lo vas a ingresar en nuestra App CHEC
+www.chec.com.co
+Inscríbete para recibir 
+tu factura en el correo 
+electrónico ingresando 
+a www.chec.com.co y 
+sigue el paso a paso.
+Valor congelado mes actual
+Valor congelado acumulado (incluye
+el mes actual)
+Pago Excedentes
+CHECGrupoEPM
+@CHECGrupoEPM
+facebook.com/CHECGrupoEPM 
+Concepto
+Comercialización
+Retefuente
+Reteica
+Cantidad kWh
+Precio
+Valor $
+Compra energía activa 
+exportación 1 Crédito energía
+Compra energía activa 
+exportación 2 Valoración horaria 
+Conceptos de Autogenerador
+La Retención en la fuente y la Retención ICA se discriminan a título de renta; la primera cuando los 
+excedentes tipo 2 superen el equivalente a 27 UVT, si la base es menor o igual a dicho monto no se practica 
+retención y la segunda se practica sobre la base determinada por cada municipio. 
+CAROLINA ARISTIZABAL ARIAS
+CRA 8 67 10 CAS 03 CDM EL RETIRO
+Villamaria
+991232331
+$ 66.889
+301,5748
+Enero
+ 
+ENE23L16
+M64352
+22
+8,898
+16
+30,4
+37,6
+ 
+77
+88
+31
+31
+33
+5
+5
+23
+25
+4
+6
+15
+30
+4
+4
+22
+31
+4
+5
+22
+30
+5
+7
+18
+31
+4
+6
+21
+31
+5
+6
+20
+19
+10
+67
+65
+79
+77
+53
+88
+AGO
+SEP
+OCT
+NOV
+DIC
+ENE
+PROM
+ACT
+B^^^BTBUp9#@WrSDm%@WrWBmB^^^B
+81+1ArPZU,lMea?4`]}A=8=:+
+j,aZ7V!}wr8U>l6S\y&b6S\y&by{Fq6&
+REze4+u:GY~f{.}0
+C}&a0	c$z=*q[[z
+vJ>jVy @CFW1k.&W
+ynbWJynb}p=
+;;;%ckuWc%?!}KAi%?)uGs)#1{akK
+$34.142
+$0
+0
+$16.393
+$16.354
+$0
+0
+03/MAR/2026
+16/FEB/2026
+Consumo activa
+$75.449
+31/ENE/2026
+01/ENE/2026 - 31/ENE/2026
+31
+0
+0
+0
+20
+0
+0
+ 
+88,00
+84
+0%
+0
+30/ENE/2026
+$61.064
+0,49%
+Lectura Tomada
+Activa Sencilla
+ 
+ 
+1
+88,00
+859,425
+75.449
+29
+55
+1
+88,00
+$75.449
+84
+4
+52,9743
+242,4064
+19,5517
+182,2573
+60,6605
+859,4250
+Código de barras saldo actual: $ 66.889
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿
+(415)7709998001183(8020)01099123233112(3900)0000066889(96)20260311
+Fecha máxima de pago: 03/MAR/2026
+115030496
+$75.449
+-61
+859,425
+$-52.425
+-61
+-182,2573
+$11.118
+264 264 1/2
+ĀÂÞÞÞÂĀê°õý¤©âÙäéÆ¿ ¦Õ¨ô»²²» ÉÇ¨ìÑ²åĀåöµÈýÐÇÎÛ¸µìýúó¨¾ĀÂÞÞÞÂĀ
+¢¢¤·«©Ø¶æÉíÀ±£ýª¬ÄÙäµ­¼ù¹þ«ÇÒ¤²ñùÙí¾´¯î×Ýè¹áÙÔ×¯Â³Ç¡¹°¦
+»¡¾ÖôÓúåá§Õ´Ñ½êëÄÄ³¼¼þè¦áéñóÑÈäåäâõâìÚßøäØôµÆýøçÙëÈñÔÑ
+Ë¯  °«ÙÐÙÇÃïðµ¦¹ÙÊèð©»é°ôÂ¶£±ß¹¸¿Ãÿüâ¶úéË¹ÀĀÕÂìöÖ¹ûùĀ©ðÁåß
+ÝäòÙÖÚÝ¡¨½±ªºÉÌÄÚòÃÐåâ¶ªØ­°Ñ¨ÏÛýíÒ»Õ¦ÄÕä¨¶¨ÂÈêùøãÃÛÁ½Â
+­­Üéè«ûâº¿ùÒ§Ê»Ñþê£ÂÊåÖ¸¢ýÇââÏòâ¹¢ûïßÍÎÍÑñß»ÝË«°×åêÏÍäÃÉÒùÛ¹òÛ
+Þ×¿ÕÖð¤áÝ ªøëßÆÌàðíèáÀÏî×»äÈâ¨±Â½±Â ý­è°áö¹ðÚØâ¬¨ÄïýĀÕÍè±±í»
+Ïíºó¶«¦ï×ïýãêûä·Å¨Ð¯öá«¢¤ïç¸ ¨éÌàøý±Ùø»°­û¨ûøÖ´¹²Ý­¤ÎëéĀ¹¡®ùäè¡
+êñüÛªÖÙí÷©ØĀã­æ·¿ãÜâÙî¦¶»¤´í¹÷ÝØÑÄÂùö½Î»®ÑñÄâ²Ãºå½à«ðÁùëªâÆÏä
+ó«²¯êîýÐøÂµõÄ­ÒÏë·ìÈê îÇòÂ¸éÔ·¯»µ©àÇ¿äâ¾ĀÈôßäú½¨
+ĀÂÞÞÞÂĀîËÕ¼¶ÄĀÄ²Å¬ÞöòØüÚ¢ìÕä¤µ¿£Þ×ìñÕýµøÞ½Õì¨ÑìµâÈêüÒù¾Õ´
+Fecha y hora de generación:
+2026-02-16 11:45:03
+Fecha y hora de expedición:
+2026-02-16 19:07:00
+QR DIAN
+CUDE: 4c2e3b2da46dc862a890de810bf7c6367f000b21814e7c471d372e94b34aa888b7eaf0527195bbe08d57a78b93509451
+$0
+2
+S
+2
+
+========== PAGE ==========
+Crédito Tarjeta Grupo EPM / Somos 
+Otros productos/Servicios adquiridos
+por la factura
+Descripción
+#
+Cuota
+Saldo
+Valor Total:
+Tasa de
+interés
+ Tasa interés
+moratoria
+Valor
+compra
+Capital
+Interés
+Impuesto Municipal Alumbrado Público
+Impuestos
+Municipio
+Número de cuenta
+Atención al ciudadano
+Acuerdo municipal No.
+Cláusula 39 Contrato
+de Condiciones Uniformes*
+Valor total
+Fecha máxima de pago
+Nombre
+Doc. equivalente
+Saldo anterior
+Valor periodo
+* CLÁUSULA 39. FACTURAS ...también se podrá cobrar en la factura el impuesto de 
+alumbrado público conforme a los convenios suscritos con el respectivo municipio o 
+concesionario, además de otras tasas o impuestos que se deriven de convenios suscritos 
+con otras entidades...
+Descripción
+Valor
+Valor Total
+Otros Productos y/o Servicios
+Recaudo otras empresas
+Aseo
+Frecuencia de barrido:
+Frecuencia de recolección:
+Número de unidades:
+Meses Deuda: 
+Empresa:
+Dirección:
+NIT:
+Sitio Web:
+Correo Electrónico:
+Línea de Atención:
+Uso:
+Estrato:
+Sub%:    
+Contrib %:
+Costo:
+ 
+Central Hidroeléctrica de Caldas CHEC SA. E.SP  / Nit 
+890800128-6.  NUIR 037217000.  Agente retenedor de IVA 
+artículo 437-2 del E.T., somos grandes contribuyentes resolución 
+9061 de 2020, autorretenedor renta res. 0547 de enero de 2002, 
+operador de red CHEC S.A, Operador de red CHEC S.A. E.S.P. Km. 
+1 Autopista del Café - Manizales - PBX: 606 (8899000) Fax. 606 
+(8899000) Correo Electrónico: chec@chec.com.co
+Toda la información relacionada con Cambio de Comercializador la puedes encontrar en el link: 
+www.chec.com.co
+El hurto reiterado de infraestructura atenta contra la disponibilidad permanente del servicio y puede llegar a dejarte sin servicio por un 
+término indeterminado, ya que esta situación escapa a las labores habituales de mantenimiento que debe realizar la empresa. 
+Denuncia en nuestros canales de atención
+www.chec.com.co
+Importante
+Periodo
+Descripción
+Total Aseo
+TRBL: Tonelada barrido limpieza / TRLU: Tonelada limpieza urbana /
+TRRA: Tonelada rechazo de aprovechamiento / TRNA: Tonelada residuos 
+no aprovechados / TAFNA: Tonelada residuos no aprovechados aforados / 
+TRA: Tonelada efectivamente aprovechadas / CFT: Costo ﬁjo total  / 
+CVNA: Costos residuos no aprovechables / VBA: Valor base 
+aprovechamiento /   
+Historico
+Costo unitario
+TRBL
+TRLU
+TRRA
+TRNA
+TAFNA
+TRA
+CFT
+CVNA
+VBA
+Mes
+Tarifa ($)
+Consumo (Ton)
+Importación y exportación en kWh
+Canales de Atención
+Centro
+de Contacto 
+A través de:
+www.chec.com.co
+Asesora
+Virtual
+1
+2
+ASESOR REMOTO
+PQR’s
+Consulta
+Interrupciones
+de Energía
+Cupón de Pago
+Puntos y Medio de Pago
+Pago digital: www.chec.com.co
+Débito automático
+Puntos Susuerte - Apostar
+Bancos
+Corresponsales bancarios
+Trámites y servicio: #415
+01 8000 912432 
+Líneas gratuitas telefónicas
+Denuncia actos indebidos
+Oﬁcinas
+Para registrar un incidente o acto indebido de 
+empleados, funcionarios o contratistas de CHEC, 
+comunícate al 01 8000 522 955 o 
+www.chec.com.co
+Contacto
+Transparente
+Oficinas CHEC
+de tu municipio
+Acumulado horario
+del mes kWh
+Daños: 115
+ Nombre
+Dirección
+Oﬁcina
+ CHEC
+Clase de 
+servicio
+Ciclo de
+ facturación
+Número
+de medidor
+Ruta de lectura - Ubicación - 
+Datos técnicos
+Villamaria
+991232331
+Alcaldia Cra 4 Calle 9 esquina palacio municipal
+001 del 26 de febrero de 2025
+$0
+CAROLINA ARISTIZABAL ARIAS
+115030496
+$16.393
+EMAS MANIZALES S.A E.S.P(M)
+www.emas.com.co
+co.servicioalcliente.emas@veolia.com
+018000 950 096
+4
+16354
+0
+0
+800249174
+0
+0
+0
+0
+0
+0
+0
+0
+DIC
+NOV
+OCT
+SEP
+JUL
+AGO
+00015560
+00015560
+0
+0
+0
+0
+0
+0
+0
+Calle 62 N 23-61 local 203
+1
+03/MAR/2026
+RESIDENCIAL
+0
+0
+0
+$16.393
+este código
+Escanea
+la factura?
+¿Quieres que
+te expliquemos
+CARGO FIJO ASEO
+$16.354
+01/01/2026
+$16.354
+304 4199014
+Financiamos 
+para que el regreso a clases
+empiece con tranquilidad.
+útiles, tecnología
+y soluciones
+Activa importada
+Activa exportada
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+0
+2
+4
+6
+8
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.0
+0.5
+0.8
+1.5
+1.5
+1.6
+1.8
+2.1
+2.2
+2.5
+2.6
+2.7
+2.8
+2.9
+2.9
+2.9
+3.3
+3.3
+3.4
+3.7
+4.0
+4.4
+5.0
+5.0
+5.1
+5.5
+6.2
+7.1
+7.9
+8.0
+8.4
+8.8
+8.9
+9.5
+9.8
+Consumo importado
+Exportación
+AGO
+SEP
+OCT
+NOV
+DIC
+ENE
+0
+15
+30
+45
+60
+75
+90
+0
+10
+13
+19
+65
+65
+67
+77
+79
+79
+80
+79
+097 10013330112
+Urbano
+1 Residencial
+97
+MANIZALES
+24117756
+CRA 8 67 10 CAS 03 CDM EL RETIRO
+CAROLINA ARISTIZABAL ARIAS
+HORA
+0
+000000
+000000
+0
+264 264 2/2
