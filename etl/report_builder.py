@@ -22,6 +22,7 @@ from core.constants import (
     BORDER_THIN, FORMATO_MONEDA, FORMATO_KW
 )
 from core.utils import get_nested_val as _get_nested_val
+from core.utils import clean_float
 
 # ---------------------------------------------------------------------------
 # Helpers de estilo
@@ -77,19 +78,15 @@ def _crear_hoja_resumen(wb: Workbook, facturas: list[dict]):
     ws.row_dimensions[1].height = 32
 
     # KPIs
-    total_valor = sum(float(str(_get_nested_val(f, "bloque_control_y_totales.valor_total", 0)).replace(",", ".")) for f in facturas)
+    total_valor = sum(clean_float(_get_nested_val(f, "bloque_control_y_totales.valor_total", 0)) for f in facturas)
     consumos = []
     for f in facturas:
-        try:
-            val = _get_nested_val(f, "bloque_consumo_energia.kwh_consumidos", 0)
-            consumos.append(float(str(val).replace(",", ".")))
-        except (ValueError, TypeError):
-            consumos.append(0.0)
+        consumos.append(clean_float(_get_nested_val(f, "bloque_consumo_energia.consumo_activa_en_kwh", 0)))
     total_kwh = sum(consumos)
     municipios = set(_get_nested_val(f, "bloque_datos_cliente.municipio", "N/A") for f in facturas)
     tipos_count = {}
     for f in facturas:
-        t = f.get("tipo_factura", 1) # Mantenemos tipo_factura si existe fuera, o default 1
+        t = _get_nested_val(f, "bloque_datos_cliente.tipo_factura", 1)
         tipos_count[t] = tipos_count.get(t, 0) + 1
 
     kpis = [
@@ -138,7 +135,7 @@ def _crear_hoja_resumen(wb: Workbook, facturas: list[dict]):
 
     mun_count = {}
     for f in facturas:
-        m = f.get("municipio", "N/A")
+        m = _get_nested_val(f, "bloque_datos_cliente.municipio", "N/A")
         mun_count[m] = mun_count.get(m, 0) + 1
 
     for j, (mun, cnt) in enumerate(sorted(mun_count.items()), row_offset + 1):
@@ -152,23 +149,23 @@ def _crear_hoja_resumen(wb: Workbook, facturas: list[dict]):
 # ---------------------------------------------------------------------------
 
 COLUMNAS_FACTURAS = [
-    ("Archivo",           "archivo_origen",                             "left",   None),
-    ("N° Cuenta",         "bloque_control_y_totales.numero_de_cuenta",  "center", None),
-    ("Cliente",           "bloque_datos_cliente.nombre",                "left",   None),
-    ("Municipio",         "bloque_datos_cliente.municipio",             "left",   None),
-    ("Estrato",           "bloque_datos_cliente.estrato",               "center", None),
-    ("Período",           "bloque_control_y_totales.factura_del_mes_de", "center", None),
-    ("Vence",             "bloque_control_y_totales.fecha_maxima_de_pago", "center", None),
-    ("Consumo (kWh)",     "bloque_consumo_energia.kwh_consumidos",       "right",  None),
-    ("Valor Total ($)",   "bloque_control_y_totales.valor_total",        "right",  FORMATO_MONEDA),
-    ("Lect. Anterior",    "bloque_consumo_energia.lectura_anterior_activa", "center", None),
-    ("Lect. Actual",      "bloque_consumo_energia.lectura_actual_activa",   "center", None),
+    ("Archivo",           "archivo_origen",                                          "left",   None),
+    ("N° Cuenta",         "bloque_control_y_totales.numero_de_cuenta",               "center", None),
+    ("Cliente",           "bloque_datos_cliente.nombre",                             "left",   None),
+    ("Municipio",         "bloque_datos_cliente.municipio",                          "left",   None),
+    ("Estrato",           "bloque_datos_cliente.estrato",                            "center", None),
+    ("Período",           "bloque_control_y_totales.factura_del_mes_de",             "center", None),
+    ("Vence",             "bloque_control_y_totales.fecha_maxima_de_pago",           "center", None),
+    ("Consumo (kWh)",     "bloque_consumo_energia.consumo_activa_en_kwh",            "right",  None),
+    ("Valor Total ($)",   "bloque_control_y_totales.valor_total",                    "right",  FORMATO_MONEDA),
+    ("Lect. Anterior",    "bloque_consumo_energia.lectura_anterior_activa",          "center", None),
+    ("Lect. Actual",      "bloque_consumo_energia.lectura_actual_activa",            "center", None),
 ]
 
 COLUMNAS_EXTRA = [
-    ("Contribución ($)",  "bloque_consumo_energia.valor_contribucion",  "right",  FORMATO_MONEDA),
-    ("Saldo Anterior ($)","bloque_control_y_totales.saldos_meses_anteriores", "right",  FORMATO_MONEDA),
-    ("kVAr Penalizados",  "bloque_consumo_energia.consumo_reactiva_en_kvar", "center", None),
+    ("Contribución ($)",  "bloque_conceptos_energia_chec.contribucion_activa_valor", "right",  FORMATO_MONEDA),
+    ("Saldo Anterior ($)","bloque_control_y_totales.saldos_meses_anteriores",        "right",  FORMATO_MONEDA),
+    ("kVAr Penalizados",  "bloque_consumo_energia.consumo_reactiva_en_kvar",         "center", None),
 ]
 
 
@@ -185,7 +182,12 @@ def _crear_hoja_facturas(wb: Workbook, facturas: list[dict]):
 
     # Filas de datos
     for row_idx, factura in enumerate(facturas, 2):
-        tipo = factura.get("tipo_factura", 1)
+        tipo = _get_nested_val(factura, "bloque_datos_cliente.tipo_factura", 1)
+        if not isinstance(tipo, int):
+            try:
+                tipo = int(tipo)
+            except (ValueError, TypeError):
+                tipo = 1
         fila_color = _color_por_tipo(tipo)
         fill = PatternFill("solid", fgColor=fila_color)
 
@@ -236,20 +238,21 @@ def _crear_hoja_por_tipo(wb: Workbook, facturas: list[dict]):
     # Agrupar
     grupos: dict[int, list] = {}
     for f in facturas:
-        t_num = f.get("tipo_factura", 0)
+        t_num = _get_nested_val(f, "bloque_datos_cliente.tipo_factura", 0)
+        if not isinstance(t_num, int):
+            try:
+                t_num = int(t_num)
+            except (ValueError, TypeError):
+                t_num = 0
         grupos.setdefault(t_num, []).append(f)
 
     row = 3
     for tipo_num in sorted(grupos.keys()):
         grupo = grupos[tipo_num]
-        total = sum(float(str(_get_nested_val(f, "bloque_control_y_totales.valor_total", 0)).replace(",", ".")) for f in grupo)
+        total = sum(clean_float(_get_nested_val(f, "bloque_control_y_totales.valor_total", 0)) for f in grupo)
         kwhs = []
         for f in grupo:
-            try:
-                val = _get_nested_val(f, "bloque_consumo_energia.kwh_consumidos", 0)
-                kwhs.append(float(str(val).replace(",", ".")))
-            except (ValueError, TypeError):
-                kwhs.append(0.0)
+            kwhs.append(clean_float(_get_nested_val(f, "bloque_consumo_energia.consumo_activa_en_kwh", 0)))
         total_kwh = sum(kwhs)
         promedio = total / max(len(grupo), 1)
         fill = PatternFill("solid", fgColor=_color_por_tipo(tipo_num))

@@ -1,0 +1,7 @@
+# 🤖 Universal Memory Router
+
+> [!IMPORTANT]
+> Para mantener la coherencia con otros proveedores de IA (Claude Code, Gemini), **DEBES** leer el archivo `AGENTS.md` ubicado en la raíz de este proyecto antes de realizar cualquier cambio, responder preguntas de arquitectura o empezar a programar.
+> 
+> **Tu primera acción en cada nueva sesión debe ser:**
+> Leer `AGENTS.md` para cargar el contexto, reglas y estado actual del proyecto. No guardes reglas persistentes ni memoria en este archivo `.cursorrules`. Todo debe ir en `AGENTS.md` o en la carpeta `memory/`.

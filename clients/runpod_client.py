@@ -8,6 +8,7 @@ import os
 import json
 import requests
 import time
+import re
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -65,11 +66,15 @@ class RunPodClient:
             "input": {
                 "openai_route": "/v1/chat/completions",
                 "openai_input": {
-                    "model": "Qwen/Qwen2-VL-7B-Instruct",
+                    "model": "OpenGVLab/InternVL2-26B",
                     "messages": messages,
-                    "max_tokens": 8000,
-                    "temperature": 0.0,
-                }
+                    "max_tokens": 1500,
+                    "temperature": 0.01,
+                    "frequency_penalty": 0.7,
+                    "presence_penalty": 0.2
+                },
+                "max_tokens": 1500,
+                "max_new_tokens": 1500
             }
         }
         
@@ -108,8 +113,13 @@ class RunPodClient:
                     output = result.get("output", "")
                     
                     # Log total a archivo para debug
-                    with open("debug_runpod.json", "w", encoding="utf-8") as f:
+                    with open("debug_runpod_api.json", "w", encoding="utf-8") as f:
                         json.dump(result, f, indent=2)
+
+                    # Extraer el texto crudo antes de cualquier limpieza para auditoría
+                    raw_text = str(output)
+                    with open("debug_runpod_raw.txt", "w", encoding="utf-8") as f:
+                        f.write(raw_text)
                     
                     # Caso 1: El output es una lista (común en algunas plantillas vLLM/RunPod)
                     if isinstance(output, list) and len(output) > 0:
@@ -120,23 +130,22 @@ class RunPodClient:
                         # Formato Chat (OpenAI)
                         if "choices" in output and len(output["choices"]) > 0:
                             choice = output["choices"][0]
+                            content = ""
                             if "message" in choice:
-                                return choice["message"]["content"]
-                            if "tokens" in choice:
-                                if isinstance(choice["tokens"], list):
-                                    return "".join(map(str, choice["tokens"]))
-                                return str(choice["tokens"])
-                            if "text" in choice:
-                                return choice["text"]
+                                content = choice["message"]["content"]
+                            elif "text" in choice:
+                                content = choice["text"]
+                            
+                            return self._clean_json_string(content) if json_mode else content
                         
                         # Formato Directo (Legacy Completion)
                         if "text" in output:
-                            return output["text"]
+                            return self._clean_json_string(output["text"]) if json_mode else output["text"]
                         
                         return str(output)
                     
                     # Caso 3: Es una cadena directa
-                    return str(output)
+                    return self._clean_json_string(str(output)) if json_mode else str(output)
                 elif status == "FAILED":
                     raise Exception(f"RunPod execution FAILED: {result.get('error')}")
                 
@@ -146,6 +155,29 @@ class RunPodClient:
         except Exception as e:
             print(f"❌ Error en RunPodClient: {e}")
             raise
+
+    def _clean_json_string(self, text: str) -> str:
+        """Limpia la respuesta del modelo con fuerza bruta para asegurar JSON."""
+        if not text: return ""
+            
+        # 1. Eliminar bloques markdown
+        text = re.sub(r'```json\s*', '', text)
+        text = re.sub(r'```\s*', '', text)
+        
+        # 2. Búsqueda de la ÚLTIMA llave de cierre válida antes del colapso
+        # Buscamos la última '}' que parezca cerrar el objeto principal
+        last_brace = text.rfind('}')
+        if last_brace != -1:
+            text = text[:last_brace+1]
+
+        # 3. Extraer desde la primera '{'
+        first_brace = text.find('{')
+        if first_brace != -1:
+            text = text[first_brace:]
+            
+        # 4. Limpieza final de comas y espacios
+        text = re.sub(r',\s*}', '}', text)
+        return text.strip()
 
 runpod_instance = None
 

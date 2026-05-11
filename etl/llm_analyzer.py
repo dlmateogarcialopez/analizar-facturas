@@ -15,7 +15,13 @@ from core.utils import get_nested_val, with_retry
 load_dotenv()
 
 def _get_client():
-    return get_runpod_client()
+    provider = os.getenv("LLM_PROVIDER", "runpod").lower()
+    if provider == "modal":
+        from clients.modal_client import ModalClient
+        return ModalClient()
+    else:
+        from clients.runpod_client import RunPodClient
+        return RunPodClient()
 
 @with_retry(retries=3, backoff=20)
 def _generar_r_analisis(client, prompt):
@@ -37,10 +43,11 @@ def analizar_factura(factura: dict) -> dict:
     
     try:
         response_text = _generar_r_analisis(client, prompt)
+        from core.utils import get_nested_val
         return {
             "archivo": factura.get("archivo_origen"),
             "cliente": get_nested_val(factura, "bloque_datos_cliente.nombre", "N/A"),
-            "tipo": factura.get("tipo_factura", 1),
+            "tipo": get_nested_val(factura, "bloque_datos_cliente.tipo_factura", 1),
             "analisis": response_text.strip()
         }
     except Exception as e:
@@ -57,10 +64,11 @@ def generar_resumen_ejecutivo(facturas: list[dict]) -> str:
     
     resumen_datos = []
     for f in facturas:
+        from core.utils import get_nested_val
         resumen_datos.append({
             "archivo": f.get("archivo_origen"),
             "valor": get_nested_val(f, "bloque_control_y_totales.valor_total"),
-            "consumo": get_nested_val(f, "bloque_consumo_energia.kwh_consumidos"),
+            "consumo": get_nested_val(f, "bloque_consumo_energia.consumo_activa_en_kwh"),
             "municipio": get_nested_val(f, "bloque_datos_cliente.municipio")
         })
         
@@ -81,7 +89,8 @@ def generar_resumen_ejecutivo(facturas: list[dict]) -> str:
         return f"Error en resumen ejecutivo: {e}"
 
 def analizar_todas(facturas: list[dict]) -> tuple[list[dict], str]:
-    print("🤖 Generando análisis inteligente con RunPod...")
+    provider = os.getenv("LLM_PROVIDER", "RunPod").upper()
+    print(f"🤖 Generando análisis inteligente con {provider}...")
     individuales = []
     for f in facturas:
         print(f"  → Analizando: {f.get('archivo_origen')}")

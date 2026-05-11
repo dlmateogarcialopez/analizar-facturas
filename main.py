@@ -7,7 +7,18 @@ Entry point limpio y mantenible de la aplicación CHEC.
 import argparse
 import os
 import sys
+import argparse
 from datetime import datetime
+from dotenv import load_dotenv
+
+# Asegurar que el directorio raíz del proyecto esté en el path para los imports
+project_root = os.path.dirname(os.path.abspath(__file__))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+
+# Forzar codificación UTF-8 para evitar errores en terminales Windows con emojis
+if sys.stdout.encoding != 'utf-8':
+    sys.stdout.reconfigure(encoding='utf-8')
 
 from etl.pipeline import InvoiceEtlPipeline
 
@@ -53,7 +64,8 @@ def main():
     pipeline = InvoiceEtlPipeline(
         input_dir=args.carpeta,
         output_file=args.output,
-        skip_llm=args.sin_llm
+        skip_llm=True
+          # Temporalmente forzado a True para probar solo Fase 1 y 3
     )
 
     try:
