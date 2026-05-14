@@ -58,16 +58,16 @@ class ModalClient:
             messages.append({"role": "user", "content": prompt})
 
         # Payload para el Endpoint OpenAI Compatible en Modal
+        # Nota: max_model_len del servidor = 8192, prompt ~2000 tokens → máx ~6000 para completion
         payload = {
             "model": "Qwen/Qwen2.5-VL-72B-Instruct-AWQ", 
             "messages": messages,
-            "max_tokens": 4000,
+            "max_tokens": 6000,
             "temperature": 0.01,
         }
         
         if json_mode:
             payload["response_format"] = {"type": "json_object"}
-            payload["max_tokens"] = 4000
 
         max_retries = 12
         retry_delay = 30 # Segundos entre reintentos para soportar Cold Starts de hasta 6 minutos

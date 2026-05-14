@@ -24,21 +24,20 @@
 ```
 main.py
   └─ etl/pipeline.py  (InvoiceEtlPipeline — Facade)
-        ├─ etl/extractor.py     (PDF→images→base64→LLM→JSON anidado)
+        ├─ etl/extractor.py     (PDF→images/page→Pass 1:P1→Classify:P2→Pass 2:P2_Charts)
         ├─ etl/llm_analyzer.py  (per-invoice + portfolio analysis via LLM)
         └─ etl/report_builder.py (5-sheet xlsx: Resumen, Facturas, Por Tipo, Análisis LLM, Datos Crudos)
 ```
 
+
 ## 📂 Archivos Clave
 | Archivo | Propósito |
 |------|---------|
-| `clients/modal_client.py` | Cliente API para Modal (OpenAI-compatible, max_tokens=4000, sin stop tokens). |
-| `clients/runpod_client.py` | Cliente API para RunPod (polling loop, manejo de InternVL). |
-| `core/constants.py` | `PROMPT_SISTEMA_EXTRACCION` (esquema JSON anidado por bloques), paleta de colores y estilos Excel. |
-| `core/utils.py` | Utilidades: `get_nested_val(d, "a.b.c")`, `clean_float()`, decorador `with_retry`. |
-| `etl/extractor.py` | Procesamiento PDF (dpi=100, stitching de páginas). Usa `get_nested_val` para imprimir resultados. |
-| `etl/llm_analyzer.py` | Análisis individual y resumen ejecutivo. Usa `get_nested_val` para extraer datos de bloques. |
-| `etl/report_builder.py` | Generador de Workbook 5 hojas. Columnas mapeadas con notación de punto (`bloque_X.campo`). |
+| `clients/modal_client.py` | Cliente API para Modal (OpenAI-compatible, max_tokens=4000). |
+| `core/constants.py` | Contiene los prompts: `PROMPT_PAGINA_1` (datos) y `PROMPT_PAGINA_2_PROSUMIDOR` (gráficas). |
+| `etl/extractor.py` | Implementa flujo Multi-Pass: Clasificación local (gratis) → Pass 1 (P1 @ 3.0x) → Pass 2 opcional (P2 @ 3.0x). |
+| `etl/report_builder.py` | Generador de Workbook 5 hojas. Incluye hoja "💾 Datos Crudos" para validación técnica. |
+
 
 ## ⚙️ Configuración (Variables de Entorno)
 Requiere archivo `.env` (basado en `.env.example`):
@@ -79,9 +78,16 @@ Requiere archivo `.env` (basado en `.env.example`):
   - Incluye "Diccionario de Extracción" con guía espacial/contextual que indica al modelo DÓNDE buscar cada dato en la factura.
   - Todo el pipeline (`extractor`, `pipeline`, `llm_analyzer`, `report_builder`) adaptado para usar `get_nested_val()` con notación de punto.
 - **[2026-05-08] Decisión: Qwen2.5-VL-72B > InternVL2-26B para ETL:**
-  - InternVL2-26B devuelve JSONs vacíos con schemas de >50 campos (sobrecarga de atención por parches rígidos de imagen).
-  - Qwen2-VL (cualquier tamaño) usa M-RoPE para resolución dinámica, haciéndolo ideal para documentos densos.
-  - Recomendación: usar Qwen2.5-VL-72B-Instruct para extracción y reservar modelos grandes generalistas solo para análisis textual.
+  - InternVL2-26B devuelve JSONs vacíos con schemas de >50 campos.
+  - Qwen2-VL (M-RoPE) es ideal para documentos densos.
+- **[2026-05-11] Decisión: Arquitectura Multi-Pass vs Stitching:**
+  - El stitching de 2 páginas degradaba la resolución efectiva.
+  - Se implementó flujo en 3 pasos: 1. Pass 1 (P1 @ 2.0x), 2. Clasificación (P2), 3. Pass 2 (Gráficas P2).
+  - Mejora la precisión en bloques visuales del 61% a valores esperados >90%.
+- **[2026-05-12] Clasificación Local y Zoom 3.0:**
+  - Se sustituyó la clasificación por LLM por una búsqueda local de keywords en el texto del PDF (`_clasificar_factura` local). Ahorro de 1 petición por factura.
+  - El zoom se estandarizó en **3.0x** para máxima fidelidad visual.
+  - **Advertencia:** El uso de Zoom 3.0 incrementa el consumo de tokens de imagen. Requiere un servidor con `max_model_len >= 16384` para evitar truncamiento del JSON de respuesta (el contexto de 8192 es insuficiente para Zoom 3.0 + prompt de 70 campos).
 
 ---
 *Nota para IAs: Si el contexto de este documento crece a más de 300 líneas, modulariza creando archivos Markdown en la carpeta `.agent/memory/` y referéncialos aquí.*
